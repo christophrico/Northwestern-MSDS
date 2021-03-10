@@ -11,10 +11,10 @@
 ## Table of Contents
 * [About the Course](#about-the-course)
 * Coursework
- 1. [SQLAlchemy practice](https://github.com/christophrico/Database-Systems-and-Data-Preparation/tree/master/Exercise-1)
- 2. [Retrieving and cleaning structured data](https://github.com/christophrico/Database-Systems-and-Data-Preparation/tree/master/Exercise-2)
- 3. [Hierarchical indexing in PanDas](https://github.com/christophrico/Database-Systems-and-Data-Preparation/tree/master/Exercise-3)
- 4. [NoSQL techniques](https://github.com/christophrico/Database-Systems-and-Data-Preparation/blob/master/Chicago_Food_Inspection.ipynb)
+ 1. [SQLAlchemy practice](./Exercise-1)
+ 2. [Retrieving and cleaning structured data](h./Exercise-2)
+ 3. [Hierarchical indexing in PanDas](./Exercise-3)
+ 4. [NoSQL techniques](./Chicago_Food_Inspection.ipynb)
 
 ---
 <!-- ABOUT THE Course -->

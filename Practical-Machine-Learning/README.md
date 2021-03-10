@@ -11,14 +11,14 @@
 ## Table of Contents
 * [About the Course](#about-the-course)
 * Coursework
- 1. [Exploring and Visualizing Data](https://github.com/christophrico/Practical-Machine-Learning/tree/master/assign-1)
- 2. [Evaluating Classification Models](https://github.com/christophrico/Practical-Machine-Learning/tree/master/assign-2)
- 3. [Evaluating Regression Models](https://github.com/christophrico/Practical-Machine-Learning/tree/master/assign-3)
- 4. [Random Forests](https://github.com/christophrico/Practical-Machine-Learning/tree/master/assign-4)
- 5. [Principal Components Analysis](https://github.com/christophrico/Practical-Machine-Learning/tree/master/assign-5)
- 6. [Neural Networks](https://github.com/christophrico/Practical-Machine-Learning/tree/master/assign-6)
- 7. [Deep Learning: Image Processing With a CNN](https://github.com/christophrico/Practical-Machine-Learning/tree/master/assign-7)
- 8. [Deep Learning: Language Modeling With an RNN](https://github.com/christophrico/Practical-Machine-Learning/tree/master/assign-8)
+ 1. [Exploring and Visualizing Data](./assign-1)
+ 2. [Evaluating Classification Models](./assign-2)
+ 3. [Evaluating Regression Models](./assign-3)
+ 4. [Random Forests](./assign-4)
+ 5. [Principal Components Analysis](./assign-5)
+ 6. [Neural Networks](./assign-6)
+ 7. [Deep Learning: Image Processing With a CNN](./assign-7)
+ 8. [Deep Learning: Language Modeling With an RNN](./assign-8)
 
 ---
 <!-- ABOUT THE Course -->
