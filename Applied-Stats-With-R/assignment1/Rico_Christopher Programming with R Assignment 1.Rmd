@@ -1,0 +1,405 @@
+---
+title: 'Rico_Christopher'
+output:
+  html_document: default
+---
+
+```{r setup, include = FALSE}
+# DO NOT ADD OR REVISE CODE HERE
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE)
+
+```
+
+-----
+
+##### Section 1: (8 points) This problem deals with vector manipulations.
+
+(1)(a)  Create a vector that contains the following, in this order, and output the final, resulting vector.  Do not round any values, unless requested.
+* A sequence of integers from 0 to 4, inclusive.
+* The number 13
+* Three repetitions of the vector c(2, -5.1, -23).
+* The arithmetic sum of 7/42, 3 and 35/42
+
+```{r test1a}
+
+#create and populate initial vector
+vecMain = c(0, 1, 2, 3, 4)
+
+#append in 13
+vecMain = append(vecMain, 13, after = length(vecMain))
+
+#append in second vector 3 times
+vec2 = c(2, -5.1, -23)
+for (x in c(1:3)) vecMain = append(vecMain, vec2, after = length(vecMain))
+
+#append in arithmetic sum of 7/42, 3, 35/42
+arithSum = (7/42) + 3 + (35/42)
+vecMain = append(vecMain, arithSum, after = length(vecMain))
+
+#print vector
+vecMain
+
+```
+
+(1)(b)  Sort the vector created in (1)(a) in ascending order.  Output this result. Determine the length of the resulting vector and assign to "L". Output L. Generate a descending sequence starting with L and ending with 1. Add this descending sequence arithmetically the sorted vector. This is vector addition, not vector combination. Output the contents. Do not round any values.
+
+```{r test1b}
+
+#sort the vector ascending and print result
+vec1B = sort(vecMain, decreasing = FALSE)
+vec1B
+
+#determine the length and print result
+L = length(vec1B)
+L
+
+#generate descending sequence starting with L and ending with 1
+seqVec = seq(from = L, to = 1)
+
+#add this sequence to the sorted vector and print to screen
+addVec1B = vec1B + seqVec
+addVec1B
+
+```
+
+(1)(c) Extract the first and last elements of the vector you have created in (1)(b) to form another vector of the extracted elements. Form a third vector from the elements not extracted. Output these vectors.
+
+```{r test1c}
+
+#get first and last elements of additive vector into a new vector
+vec1C = addVec1B[1]
+vec1C = append( vec1C, addVec1B[length(addVec1B)], after = length(vec1C) )
+
+#get remaining elements into another vector
+vec1C_other = addVec1B [2 : (length(addVec1B)-1) ]
+
+#print both vectors to screen
+vec1C
+vec1C_other
+
+```
+
+(1)(d) Use the vectors from (c) to reconstruct the vector in (b). Output this vector. Sum the elements and round to two decimal places.
+
+```{r test1d}
+
+#get first element from first and last vector
+vec1D = vec1C[1]
+
+#get entire middle vector
+vec1D = append(vec1D, vec1C_other, after = length(vec1D))
+
+#get last element from first and last vector, print resultant vector
+vec1D = append(vec1D, vec1C[2], after = length(vec1D))
+vec1D
+
+#sum the elements and round to two decimal places
+vecSum = sum(vec1D)
+vecSum = round(vecSum, digits = 2)
+
+```
+
+-----
+
+##### Section 2: (10 points) The expression y = sin(x/2) + cos(x/2) is a trigonometric function.
+
+(2)(a) Create a user-defined function - via *function()* - that implements the trigonometric function above, accepts numeric values, "x," calculates and returns values "y."
+
+```{r test2a}
+
+trig2A = function(x){
+  return( sin(x/2) + cos(x/2) )
+}
+
+```
+
+(2)(b) Create a vector, x, of 4001 equally-spaced values from -2 to 2, inclusive. Compute values for y using the vector x and your function from (2)(a).  **Do not output x or y.**  Find the value in the vector x that corresponds to the maximum value in the vector y. Restrict attention to only the values of x and y you have computed; i.e. do not interpolate. Round to 3 decimal places and output both the maximum y and corresponding x value.
+
+Finding the two desired values can be accomplished in as few as two lines of code.  Do not use packages or programs you may find on the internet or elsewhere. Do not output the other elements of the vectors x and y. Relevant coding methods are given in the *Quick Start Guide for R*.
+
+```{r test2b}
+
+#fill x with specified values
+x = seq(from = -2, to = 2, by = (4/4000))
+
+#fill y with calculated values from function
+y = trig2A(x)
+
+#find max value of y and position it's at
+maxY = round(max(y), digits = 3)
+maxX = x[ which.max(y) ]
+
+#print max y and corresponding x value to screen
+maxY
+maxX
+
+```
+
+(2)(c) Plot y versus x in color, with x on the horizontal axis. Show the location of the maximum value of y determined in 2(b).  Show the values of x and y corresponding to the maximum value of y in the display. Add a title and other features such as text annotations. Text annotations may be added via *text()* for base R plots and *geom_text()* or *geom_label()* for ggplots.
+
+```{r test2c}
+
+#plot the values on a chart
+plot(x, y,
+     type = "l",
+     col = "red",
+     main = "Trigonometric Function Values",
+     ylab = "y values",
+     xlab = "x values",
+     lty = 3)
+
+#plot the max value of y and corresponding x value
+points(maxX, maxY, pch=2)
+
+#and label it
+text(maxX, maxY,
+     labels="Max value: (1.571, 1.414)",
+     adj=c(.6, 2.75))
+
+```
+
+-----
+
+##### Section 3: (8 points) This problem requires finding the point of intersection of two functions.  Using the function y = cos(x/2) + sin(x/2), find where the curved line y = -(x/2)^3 intersects it within the range of values used in part (2) (i.e. 4001 equally-spaced values from -2 to 2).  Plot both functions on the same display, and show the point of intersection.  Present the coordinates of this point as text in the display.    
+
+```{r test3}
+
+#first we create an R function for this new function
+z3 = function(x){
+  return( -(x/2)^3 )
+}
+
+#next we solve for intersection point
+rt = uniroot( function(x) trig2A(x)-z3(x), c(-2, 2), tol=1e-8 )
+xInt = rt$root
+yInt = trig2A(rt$root)
+
+#__________________________________________________________________________________
+
+#plot the values on a chart
+plot(x, trig2A(x),
+     type = "l",
+     col = "red",
+     main = "Trigonometric Function vs -(x/2)^3",
+     ylab = "Function values",
+     xlab = "x",
+     lty = 3)
+lines(x,z3(x), 
+      col = "blue",
+      lty = 2)
+legend(-2, 1.4, 
+      legend = c("y = sin(x/2) + cos(x/2)", "y = -(x/2)^3)" ),
+      col = c("red", "blue"),
+      lty=3:1,
+      cex=0.8)
+
+#plot the intersect point
+points(xInt, yInt, pch=2)
+
+#and label it
+text(xInt, yInt,
+     labels="Intersection point: (1.236, 0.236)",
+     adj=c(-.2, 0))
+
+```
+
+-----
+
+##### Section 4: (12 points) Use the "trees" dataset for the following items. This dataset has three variables (Girth, Height, Volume) on 31 felled black cherry trees.
+
+(4)(a) Use *data(trees)* to load the dataset. Check and output the structure with *str()*. Use *apply()* to return the median values for the three variables. Output these values.  Using R and logicals, output the row number and the three measurements - Girth, Height and Volume - of any trees with Girth equal to median Girth.  It is possible to accomplish this last request with one line of code.  
+
+```{r test3a}
+
+#load data
+data(trees)
+
+#output structure
+str(trees)
+
+#__________________________________________________________________________________
+
+#get median values for each of 3 variables and print to screen
+medianValues = apply(trees, 2, median)
+medianValues
+
+#output row number and three measurements for any trees with girth equal to median girth
+trees[ (which(trees[1] == medianValues[1])), 1:3 ]
+
+```
+
+(4)(b) Girth is defined as the diameter of a tree taken at 4 feet 6 inches from the ground. Convert each diameter to a radius, r. Calculate the cross-sectional area of each tree using pi times the squared radius. Present a stem-and-leaf plot of the radii, and a histogram of the radii in color. Plot Area (y-axis) versus Radius (x-axis)  in color showing the individual data points.  Label appropriately.
+
+```{r test3b}
+
+#convert each diameter to a radius
+r = (trees$Girth)/2
+
+#calculate cross-sectional area
+csA = (r^2)*pi
+
+#__________________________________________________________________________________
+
+#plot stem-and-leaf
+stem(r)
+
+#plot histogram
+hist(r, col = "red", main="Cherry Tree Radii")
+
+#plot area vs radius
+plot(r, csA,
+     col = "red",
+     main = "Cherry Tree Trunk Area vs Radius",
+     #we are never given length units, so I have chosen to omit them in favor of 'r'
+     ylab = "Trunk Area (pi*r^2)",
+     xlab = "Trunk Radius(r^2)")
+
+```
+
+(4)(c) Present a horizontal, notched, colored boxplot of the areas calculated in (b). Title and label the axis.
+
+```{r test3c}
+
+#create boxplot with required characteristics
+boxplot(csA, 
+        notch = TRUE, 
+        horizontal = TRUE,
+        col = "red",
+        main = "Cherry Tree Trunk Area",
+        xlab = "Trunk Area (pi * r^2)")
+        
+```
+
+(4)(d) Demonstrate that the outlier revealed in the boxplot of Volume is not an extreme outlier.  It is possible to do this with one line of code using *boxplot.stats()* or 'manual' calculation and logicals. Identify the tree with the largest area and output on one line its row number and three measurements.
+
+```{r test3d}
+
+#note: I think like a programmer and tend to lean towards more explicit code. I would love to see a one-line solution to this problem but couldn't quite figure it out!
+
+
+#_____________________________________________________#
+# extremeOutliers
+# takes a vector of a sample distribution
+# calculates if any extreme outliers exist
+# returns true or false
+#_____________________________________________________#
+extremeOutliers = function(x) {
+  #get the distribution stats
+  xStats = boxplot.stats(x)
+  
+  #get any potential outliers
+  xOutlier = xStats$out
+  #calculate the IQR
+  IQR = (xStats$stats[4]-xStats$stats[2])
+  
+  #calculate the upper and lower extreme outlier bounds
+  upOutlierBound = xStats$stats[4]+(IQR*3)
+  lowOutlierBound = xStats$stats[2]-(IQR*3)
+  
+  #prep for the loop
+  returnVal = FALSE
+  
+  for(x in xOutlier){
+    if(x > upOutlierBound | x < lowOutlierBound){
+      returnVal = TRUE
+    }
+  }
+  return (returnVal)
+}
+
+#since this line does not print to screen, the outlier is not an extreme outlier
+if(extremeOutliers(csA)) cat("Outlier is extreme outlier")
+
+#__________________________________________________________________________________
+
+#identify index of tree with largest area, print to screen
+trees[ which.max(csA), 1:3 ]
+
+```
+
+-----
+
+##### Section 5: (12 points) The exponential distribution is an example of a right-skewed distribution with outliers.  This problem involves comparing it with a normal distribution which typically has very few outliers.  
+
+5(a) Use *set.seed(124)* and *rexp()* with n = 100, rate = 5.5 to generate a random sample designated as y.  Generate a second random sample designated as x with *set.seed(127)* and *rnorm()* using n = 100, mean = 0 and sd = 0.15.  
+
+Generate a new object using *cbind(x, y)*. Do not output this object; instead, assign it to a new name. Pass this object to *apply()* and compute the inter-quartile range (IQR) for each column:  x and y. Use the function *IQR()* for this purpose. Round the results to four decimal places and present (this exercise shows the similarity of the IQR values.).
+
+For information about *rexp()*, use *help(rexp)* or *?rexp()*.  **Do not output x or y.**
+
+```{r test5a}
+
+#generate random exponential sample
+set.seed(124)
+y = rexp(n = 100, rate = 5.5)
+
+#generate random normal sample
+set.seed(127)
+x = rnorm(n = 100, mean = 0, sd = .15)
+
+#create new object to hold both sample distros and print rounded IQR for each distro to screen
+normExp = cbind(x,y)
+round( apply(normExp, 2, IQR), digits = 4 )
+
+```
+
+(5)(b) This item will illustrate the difference between a right-skewed distribution and a symmetric one.  For base R plots, use *par(mfrow = c(2, 2))* to generate a display with four diagrams; *grid.arrange()* for ggplots. On the first row, for the normal results, present a histogram and a horizontal boxplot for x in color.  For the exponential results, present a histogram and a horizontal boxplot for y in color.
+
+```{r test5b}
+
+par(mfrow = c(2,2))
+
+#_____________________________________________
+
+#plot normal histogram
+hist(x,
+     col = "red",
+     main=" Random Normal Distribution")
+
+#plot normal boxplot
+boxplot(x, 
+        horizontal = TRUE,
+        col = "red",
+        main = "Random Normal Distribution")
+
+#_____________________________________________
+
+#plot exp histogram
+hist(y,
+     col = "blue",
+     main=" Random Exponential Distribution")
+
+#plot Exponenital boxplot
+boxplot(y, 
+        horizontal = TRUE,
+        col = "blue",
+        main = "Random Exponential Distribution")
+```
+
+(5)(c) QQ plots are useful for detecting the presence of heavy-tailed distributions. Present side-by-side QQ plots, one for each sample, using *qqnorm()* and *qqline()*.  Add color and titles. In base R plots, "cex" can be used to control the size of the plotted data points and text. Lastly, determine if there are any extreme outliers in either sample.
+
+```{r test5c}
+
+par(mfrow = c(2,2))
+#_____________________________________________
+
+#plot normal distribution
+qqnorm(x,        
+        col = "red",
+        main = "Random Normal Distribution")
+qqline(x)
+
+#plot exponential distribution
+qqnorm(y,        
+        col = "blue",
+        main = "Random Exponential Distribution")
+qqline(y)
+
+#_____________________________________________
+
+#use the extreme outlier detector function we defined earlier to determine
+#if any extreme outliers exists in either distro
+if(extremeOutliers(x)) cat("The Normal Sample Distro has extreme outliers.")
+if(extremeOutliers(y)) cat("The Exponential Sample Distro has extreme outliers.")
+
+```
