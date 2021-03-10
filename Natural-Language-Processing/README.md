@@ -11,8 +11,8 @@
 ## Table of Contents
 * [About the Course](#about-the-course)
 * Coursework
- 1. [TF-IDF and Word2Vec K-Means clustering](https://github.com/christophrico/Natural-Language-Processing/tree/master/NLP_Equivalence_Class_Processing)
- 2. [Q-A system using Bert and Haystack](https://github.com/christophrico/Natural-Language-Processing/tree/master/Q-A_Bert_Haystack)
+ 1. [TF-IDF and Word2Vec K-Means clustering](./NLP_Equivalence_Class_Processing)
+ 2. [Q-A system using Bert and Haystack](./Q-A_Bert_Haystack)
 
 
 ---
