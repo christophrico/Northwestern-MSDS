@@ -1,7 +1,7 @@
 <!-- HEADER -->
 <br />
 <p align="center">
-  <h3 align="center">Neural Net From Scratch/h3>
+  <h3 align="center">Neural Net From Scratch</h3>
   <p align="center">
      Coursework from Northwestern University MSDS 458 - Artificial Intelligence and Deep Learning
 </p>
